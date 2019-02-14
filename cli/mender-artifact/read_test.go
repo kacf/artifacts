@@ -30,6 +30,10 @@ func TestArtifactsRead(t *testing.T) {
 	defer os.RemoveAll(updateTestDir)
 
 	err := WriteArtifact(updateTestDir, 1, "")
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "deprecated")
+
+	err = WriteArtifact(updateTestDir, 2, "")
 	assert.NoError(t, err)
 
 	os.Args = []string{"mender-artifact", "read"}

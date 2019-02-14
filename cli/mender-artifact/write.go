@@ -65,7 +65,8 @@ func writeRootfs(c *cli.Context) error {
 	var h handlers.Composer
 	switch version {
 	case 1:
-		h = handlers.NewRootfsV1(c.String("file"))
+		return cli.NewExitError("artifact version 1 is deprecated",
+			errArtifactUnsupportedVersion)
 	case 2:
 		h = handlers.NewRootfsV2(c.String("file"))
 	case 3:

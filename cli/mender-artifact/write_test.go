@@ -66,7 +66,7 @@ func TestArtifactsWrite(t *testing.T) {
 		"-n", "mender-1.1", "-f", filepath.Join(updateTestDir, "update.ext4"),
 		"-o", filepath.Join(updateTestDir, "art.mender"), "-v", "1"}
 	err = run()
-	assert.NoError(t, err)
+	assert.EqualError(t, err, "artifact version 1 is deprecated")
 
 	// store named file V2.
 	os.Args = []string{"mender-artifact", "write", "rootfs-image", "-t", "my-device",

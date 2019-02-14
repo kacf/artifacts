@@ -159,12 +159,12 @@ type WriteArtifactArgs struct {
 }
 
 func (aw *Writer) WriteArtifact(args *WriteArtifactArgs) (err error) {
-	if !(args.Version == 1 || args.Version == 2 || args.Version == 3) {
-		return errors.New("Unsupported artifact version")
+	if args.Version == 1 {
+		return errors.New("writer: artifact version 1 is deprecated")
 	}
 
-	if args.Version == 1 && aw.signer != nil {
-		return errors.New("writer: can not create version 1 signed artifact")
+	if !(args.Version == 2 || args.Version == 3) {
+		return errors.New("Unsupported artifact version")
 	}
 
 	if args.Version == 3 {
