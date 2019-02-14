@@ -555,7 +555,7 @@ func (ar *Reader) ReadArtifactHeaders() error {
 
 	switch ver.Version {
 	case 1:
-		err = ar.readHeaderV1()
+		return errors.Errorf("reader: artifact version 1 is deprecated")
 	case 2:
 		err = ar.readHeaderV2(vRaw)
 	case 3:

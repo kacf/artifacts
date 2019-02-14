@@ -259,6 +259,17 @@ func TestReadArtifact(t *testing.T) {
 	}
 }
 
+func TestReadArtifactV1Deprecated(t *testing.T) {
+	fd, err := os.Open("test_artifact_v1.mender")
+	assert.NoError(t, err)
+	defer fd.Close()
+
+	aReader := NewReader(fd)
+	expectedErrorMsg := "reader: artifact version 1 is deprecated"
+	actualError := aReader.ReadArtifact()
+	assert.EqualError(t, actualError, expectedErrorMsg)
+}
+
 func TestReadSigned(t *testing.T) {
 	art, err := MakeRootfsImageArtifact(2, true, false, false)
 	assert.NoError(t, err)
