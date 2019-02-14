@@ -154,18 +154,6 @@ func TestWithScripts(t *testing.T) {
 	err = run()
 	assert.NoError(t, err)
 
-	// write artifact vith invalid version
-	os.Args = []string{"mender-artifact", "write", "rootfs-image", "-t", "my-device",
-		"-n", "mender-1.1", "-f", filepath.Join(updateTestDir, "update.ext4"),
-		"-o", filepath.Join(updateTestDir, "artifact.mender"),
-		"-s", filepath.Join(updateTestDir, "ArtifactInstall_Enter_99"),
-		"-v", "1"}
-	fakeErrWriter.Reset()
-	err = run()
-	assert.Error(t, err)
-	assert.Equal(t, "can not use scripts artifact with version 1\n",
-		fakeErrWriter.String())
-
 	// write artifact vith invalid script name
 	os.Args = []string{"mender-artifact", "write", "rootfs-image", "-t", "my-device",
 		"-n", "mender-1.1", "-f", filepath.Join(updateTestDir, "update.ext4"),

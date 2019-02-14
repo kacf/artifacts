@@ -266,18 +266,6 @@ func TestArtifactsSigned(t *testing.T) {
 	err = run()
 	assert.Error(t, err)
 	assert.Contains(t, errors.Cause(err).Error(), "Error reading key file")
-
-	// invalid version
-	os.Args = []string{"mender-artifact", "write", "rootfs-image", "-t", "my-device",
-		"-n", "mender-1.1", "-f", filepath.Join(updateTestDir, "update.ext4"),
-		"-o", filepath.Join(updateTestDir, "artifact.mender"),
-		"-k", filepath.Join(updateTestDir, "private.key"),
-		"-v", "1"}
-	fakeErrWriter.Reset()
-	err = run()
-	assert.Error(t, err)
-	assert.Equal(t, "writer: can not create version 1 signed artifact\n",
-		fakeErrWriter.String())
 }
 
 type TestDirEntry struct {
