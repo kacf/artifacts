@@ -43,6 +43,9 @@ func NewTarWriterStream(w *tar.Writer) *StreamArchiver {
 }
 
 func (str *StreamArchiver) Write(data []byte, archivePath string) error {
+	if str.Writer == nil {
+		return errors.New("arch: Can not write to empty tar-writer")
+	}
 	hdr := &tar.Header{
 		Name: archivePath,
 		Mode: 0600,
